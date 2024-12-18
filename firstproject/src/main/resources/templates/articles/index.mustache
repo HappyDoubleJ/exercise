@@ -1,0 +1,58 @@
+{{>layouts/header}}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">제목</th>
+        <th scope="col">내용</th>
+        <th scope="col">기한</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#articleList}}
+        <tr>
+            <td><a href="/articles/{{id}}" style="text-decoration: none; color: black"> {{title}}</a></td>
+            <td>{{content}}</td>
+            <td class="deadline" data-deadline="{{date}}">{{date}}</td>
+        </tr>
+    {{/articleList}}
+    </tbody>
+</table>
+<button style="background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 50px;" onclick="location.href='/articles/new'" >새로운 할일</button>
+{{>layouts/footer}}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const rows = document.querySelectorAll('.deadline');
+        const today = new Date();
+
+        rows.forEach(row => {
+            const deadlineDate = new Date(row.getAttribute('data-deadline'));
+            const timeDiff = deadlineDate - today;
+            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+            if (daysDiff <= 3) {
+                // 3일 이내 기한일 경우 빨간색 배경
+                row.style.backgroundColor = 'red';
+                row.style.color = 'white';
+            } else if (daysDiff <= 7) {
+                // 7일 이내 기한일 경우 노란색 배경
+                row.style.backgroundColor = 'yellow';
+                row.style.color = 'black';
+            } else {
+                // 기한이 7일 이상 남은 경우 초록색 배경
+                row.style.backgroundColor = 'green';
+                row.style.color = 'white';
+            }
+        });
+    });
+</script>

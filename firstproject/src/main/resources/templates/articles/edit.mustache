@@ -1,0 +1,24 @@
+{{>layouts/header}}
+{{#article}}
+<form class="container" action="/articles/update" method="post">
+    <input name="id" type="hidden" value="{{id}}">
+    <div class="mb-3">
+        <label class="form-label">제목</label>
+        <input type="text" class="form-control" name="title" value="{{title}}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">내용</label>
+        <textarea class="form-control" rows="3" name="content">{{content}}</textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">기한(0000-00-00)</label>
+        <input type="text" class="form-control" name="date" value="{{date}}">
+        // input태그로 생성한 입력 요소의 초깃값은 value 속성으로  초깃값 정의하지만, textarea 태그로 작성한건 콘텐츠 영역에 초깃값 정의.
+    </div>
+    <button type="submit" class="btn-primary">등록</button>
+    <a href="/articles/{{article.id}}">Back</a>
+</form>
+{{/article}}
+
+
+{{>layouts/footer}}
